@@ -14,6 +14,16 @@ include Master of Orion data files.
 1oom itself is Free Software (GPLv2), see [COPYING](COPYING).
 Direct use of AI-generated code is prohibited in upstream 1oom.
 
+This build has several UI changes which make playing MOO on Android possible/pleasant to use.
+Trying to use the DOSBOX version is practically unplayable due to click areas.
+
+The following UI changes were made:
+i. The slider click areas were enlarged. There are two large hotspots around the lower/raise slider buttons to make it easier to change the sliders. The slider direct click area is larger, but the up/down hotspots override the fast select. This seemed to be the most optimal way of fixing the click issue.
+ii. In the ship design screen, the increase/decrease weapon count button click areas are enlarged.
+iii. In the ship design screen, there is an additional "MAX" button to quickly set weapons to max space available.
+iv. On weapons and specials selection, there are up/down buttons on the right hand side to easily traverse the list of available items for shipment.
+
+Note that no functional changes were made: This is the same 1oom as desktop other than the usability mods I implemented to actually be able to play the game.
 
 1. You must own the original game
 =================================
@@ -27,50 +37,7 @@ On first launch, pick the folder that contains `fonts.lbx` (a full
 v1.3 set also needs `V11.LBX`). Details are in
 [doc/usage_android.txt](doc/usage_android.txt).
 
-
-2. Why F-Droid, not Google Play
-===============================
-
-The intended binary distribution is [F-Droid](https://f-droid.org/).
-
-Google Play is a poor fit: the APK is not a complete game until the
-user copies in copyrighted LBX files they already own. Play also
-restricts the broad storage permission this first version may use as
-a fallback. F-Droid is the usual home for GPLv2 engines that expect
-the player to supply original data (the same model as ScummVM or
-OpenMW).
-
-This repo does not yet contain an `fdroiddata` metadata file; that
-lives in F-Droid's data repository when the app is submitted.
-Store listing text for that submission is under
-[fastlane/metadata/android/](fastlane/metadata/android/).
-
-
-3. Layout
-=========
-
-Do **not** rename the root `src/` directory. That is the upstream 1oom
-engine (`src/game`, `src/ui/classic`, `src/hw`, `src/os`, …). Renaming
-it would break autotools, obscure `git blame` / merges from
-`1oom-fork/1oom`, and hide that this is the same code.
-
-Android Studio's `app/src/` tree is a different, Gradle-conventional
-source set sitting beside it:
-
-    src/                 1oom engine (upstream path, GPLv2)
-    app/src/main/cpp/    JNI + Android hw/os/audio backends
-    app/src/main/java/   Kotlin activity, touch view, LBX import
-    app/src/main/res/    Android resources
-    doc/                 Upstream 1oom documentation
-    doc/usage_android.txt
-    fastlane/            F-Droid / store descriptions
-
-The Android CMake build compiles `src/*.c`, `src/game/*.c`, and
-`src/ui/classic/*.c` and links them with the files in
-`app/src/main/cpp/`.
-
-
-4. Building the Android app
+2. Building the Android app
 ===========================
 
 See [COMPILING](COMPILING) section 5. Short version, from the repo root:
@@ -82,7 +49,7 @@ builds of 1oom from this tree remain possible; follow the rest of
 [COMPILING](COMPILING).
 
 
-5. Desktop 1oom (upstream)
+3. Desktop 1oom (upstream)
 ==========================
 
 1oom aims to accurately reproduce the original DOS version of
@@ -107,7 +74,7 @@ Older saved games may not work in newer 1oom versions. Read
 - libsamplerate (recommended): http://www.mega-nerd.com/libsamplerate/
 
 
-6. Acknowledgements
+4. Acknowledgements
 ===================
 
 Most of the credit for this software belongs to the programmer who
