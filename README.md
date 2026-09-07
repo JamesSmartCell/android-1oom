@@ -17,7 +17,7 @@ Direct use of AI-generated code is prohibited in upstream 1oom.
 This build has several UI changes which make playing MOO on Android possible/pleasant to use.
 Trying to use the DOSBOX version is practically unplayable due to click areas.
 
-The following UI changes were made:
+###The following UI changes were made:
 - i. The slider click areas were enlarged. There are two large hotspots around the lower/raise slider buttons to make it easier to change the sliders. The slider direct click area is larger, but the up/down hotspots override the fast select. This seemed to be the most optimal way of fixing the click issue.
 - ii. In the ship design screen, the increase/decrease weapon count button click areas are enlarged.
 - iii. In the ship design screen, there is an additional "MAX" button to quickly set weapons to max space available.
@@ -25,8 +25,7 @@ The following UI changes were made:
 
 Note that no functional changes were made: This is the same 1oom as desktop other than the usability mods I implemented to actually be able to play the game.
 
-1. You must own the original game
-=================================
+##1. You must own the original game
 
 To use this software you must legally own an original copy of
 Master of Orion (v1.3). 1oom requires that version's LBX files.
@@ -37,8 +36,7 @@ On first launch, pick the folder that contains `fonts.lbx` (a full
 v1.3 set also needs `V11.LBX`). Details are in
 [doc/usage_android.txt](doc/usage_android.txt).
 
-2. Building the Android app
-===========================
+##2. Building the Android app
 
 See [COMPILING](COMPILING) section 5. Short version, from the repo root:
 
@@ -49,8 +47,7 @@ builds of 1oom from this tree remain possible; follow the rest of
 [COMPILING](COMPILING).
 
 
-3. Desktop 1oom (upstream)
-==========================
+##3. Desktop 1oom (upstream)
 
 1oom aims to accurately reproduce the original DOS version of
 Master of Orion (1993) on modern computers.
@@ -66,16 +63,7 @@ unchanged. See:
 Older saved games may not work in newer 1oom versions. Read
 [CHANGES](CHANGES) for breaking changes.
 
-5.1 Libraries (desktop)
------------------------
-
-- SDL (libsdl1.2 or libsdl2): http://www.libsdl.org
-- SDL_mixer: http://www.libsdl.org/projects/SDL_mixer/
-- libsamplerate (recommended): http://www.mega-nerd.com/libsamplerate/
-
-
-4. Acknowledgements
-===================
+##3. Acknowledgements
 
 Most of the credit for this software belongs to the programmer who
 authored [1oom v1.0](https://kilgoretroutmaskreplicant.gitlab.io/plain-html)
