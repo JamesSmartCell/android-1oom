@@ -10,7 +10,6 @@ IssueTracker: https://github.com/JamesSmartCell/android-1oom/issues
 Changelog: https://github.com/JamesSmartCell/android-1oom/releases
 
 AutoName: Orion Master
-
 Description: |-
   Orion Master is a native Android port of 1oom. It is the engine only and
   cannot run without a legally owned Master of Orion v1.3 LBX set, which is
@@ -20,9 +19,9 @@ RepoType: git
 Repo: https://github.com/JamesSmartCell/android-1oom
 
 Builds:
-  - versionName: 1.0.1
-    versionCode: 2
-    commit: cbe626fcc7216aaae0cb2a86844bc299c6a9bd75
+  - versionName: 1.0.2
+    versionCode: 3
+    commit: REPLACE_AFTER_PUSH
     timeout: 10800
     subdir: app
     sudo:
@@ -45,5 +44,5 @@ MaintainerNotes: |-
 
 AutoUpdateMode: Version
 UpdateCheckMode: Tags
-CurrentVersion: 1.0.1
-CurrentVersionCode: 2
+CurrentVersion: 1.0.2
+CurrentVersionCode: 3

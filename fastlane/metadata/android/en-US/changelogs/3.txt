@@ -1,0 +1,1 @@
+Remove the Foojay Gradle toolchain plugin so F-Droid can scan and build from source.
