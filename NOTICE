@@ -1,0 +1,28 @@
+Orion Master (android-1oom)
+Copyright (C) 2018-2024 1oom authors (see AUTHORS)
+Copyright (C) 2026 James Smart (Android native port)
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License version 2 as
+published by the Free Software Foundation. See COPYING.
+
+This application does not include Master of Orion data files. Those
+files remain the property of their copyright holders. Users must
+supply a legally obtained Master of Orion v1.3 LBX set.
+
+Launcher icon and feature graphic
+---------------------------------
+Original artwork for this Android fork, released under GNU GPL v2
+together with the rest of this project.
+
+Antonio font
+------------
+Copyright 2013 The Antonio Project Authors
+https://github.com/googlefonts/antonioFont
+Licensed under the SIL Open Font License, Version 1.1.
+Full license text: app/src/main/assets/licenses/Antonio-OFL.txt
+
+AndroidX, Material Components, and the Android SDK
+--------------------------------------------------
+Apache License 2.0. Downloaded from Google Maven / Maven Central
+at build time; not vendored in this repository.

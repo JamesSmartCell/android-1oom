@@ -1,1 +1,1 @@
-Initial Android-native 1oom port: classic UI, touch mapping, list overlays, and user-supplied LBX import. No game data is included.
+Initial Android-native 1oom release: classic UI, touch mapping, list overlays, and user-supplied LBX import. No game data is included.

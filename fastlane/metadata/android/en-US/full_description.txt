@@ -2,9 +2,11 @@ Orion Master is a native Android port of 1oom, the GPLv2 reimplementation of Mas
 
 This app is the engine and a touch-friendly shell only. It does not include, download, or redistribute the original game's LBX data files. You must legally own Master of Orion v1.3 and copy those files onto the device before you can play.
 
-On first launch, choose the folder that contains fonts.lbx. A complete v1.3 set also needs V11.LBX (the 1.3 patch). The app copies the files into its private storage.
+On first launch, tap Choose LBX folder. If the app does not yet have file access, Android will ask you to grant it, then the folder picker opens. Pick the folder that contains fonts.lbx. A complete v1.3 set also needs V11.LBX (the 1.3 patch). The app copies the files into its private storage.
 
-The classic 1993 interface is drawn letterboxed. Taps are mapped to mouse clicks. Extra on-screen controls appear for long lists, and the Android keyboard is shown when the game asks for text.
+The classic 1993 interface is drawn letterboxed in landscape. Taps are mapped to mouse clicks. Extra on-screen controls appear for long lists, and the Android keyboard is shown when the game asks for text.
+
+The app is offline. It has no internet permission, no ads, and no analytics.
 
 This build is intended for F-Droid. It is not published on Google Play, because the APK cannot run as a complete game without user-supplied data.
 

@@ -1,1 +1,1 @@
-Native 1oom port of Master of Orion (1993). Requires your own LBX files.
+Native 1oom port of Master of Orion (1993). Requires your own LBX files

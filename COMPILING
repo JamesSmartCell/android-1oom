@@ -251,8 +251,9 @@ From the repository root:
     ./gradlew :app:assembleRelease
 
 The debug APK is written to app/build/outputs/apk/debug/.
-Release builds are unsigned unless you configure a keystore; F-Droid
-signs with its own key.
+Release builds are unsigned unless you configure a keystore. F-Droid
+builds assembleRelease from a git tag and signs with its own key.
+See doc/fdroid.md.
 
 The CMake argument -DOOM_SRC points at <repo>/src. If you relocate the
 engine, pass a new -DOOM_SRC from app/build.gradle.kts.

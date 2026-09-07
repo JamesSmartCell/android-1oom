@@ -10,8 +10,9 @@ run as an ARM/x86_64 shared library and be played on a touch screen.
 It is **not** the older DOSBox-on-Android recipe, and it does **not**
 include Master of Orion data files.
 
-1oom itself is Free Software (GPLv2), see [COPYING](COPYING).
-Direct use of AI-generated code is prohibited in upstream 1oom.
+1oom itself is Free Software (GPLv2), see [COPYING](COPYING) and
+[NOTICE](NOTICE). Direct use of AI-generated code is prohibited in
+upstream 1oom.
 
 This build has several UI changes which make playing MOO on Android possible/pleasant to use.
 Trying to use the DOSBOX version is practically unplayable due to click areas.
@@ -99,3 +100,17 @@ The files [HACKING](HACKING) and [PHILOSOPHY](PHILOSOPHY) are based on
 Chocolate Doom.
 
 Mirrors of upstream 1oom are listed in [MIRRORS.md](MIRRORS.md).
+
+## 4. F-Droid
+
+This fork is packaged for F-Droid, not Google Play. F-Droid builds
+from a public `v*` tag and signs the APK. Store listing files live
+under [fastlane/metadata/android/en-US](fastlane/metadata/android/en-US).
+The inclusion checklist and a draft `fdroiddata` recipe are in
+[doc/fdroid.md](doc/fdroid.md).
+
+## 5. Licenses for Android extras
+
+- Engine and Android shell: [GNU GPL v2](COPYING)
+- Antonio UI font: [SIL Open Font License 1.1](app/src/main/assets/licenses/Antonio-OFL.txt)
+- Launcher icon and feature graphic: original to this fork, GPLv2 (see [NOTICE](NOTICE))

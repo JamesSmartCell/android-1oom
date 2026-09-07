@@ -35,24 +35,19 @@ start.
 2. Installing the LBX files
 ============================
 
-On first launch the app shows a setup screen.
+On first launch the app shows a setup screen with one button.
 
-Preferred method (works on modern Android without all-files access):
-
-    1. Copy your LBX files into a folder on the device (any folder).
+    1. Copy your LBX files into a folder on the device.
     2. Tap "Choose LBX folder".
-    3. Pick the folder that contains fonts.lbx.
-    4. The app copies the files into its private storage and starts.
+    3. If the app does not yet have file access, Android opens the
+       system file-access screen. Grant access, then you return and
+       the folder picker opens. If access was already granted, the
+       picker opens immediately.
+    4. Pick the folder that contains fonts.lbx.
+    5. The app copies the files into its private storage
+       (usually .../files/orion1) and starts.
 
-Optional methods if you already keep a Download/Orion (or similar)
-folder:
-
-    - Grant storage access, then tap "Use Download/Orion".
-    - The app looks for orion / orion1 folders under Download and
-      under shared storage.
-
-The copy destination is shown on the setup screen
-(usually .../files/orion1). Saves and config also live there.
+Saves and config also live in that private folder.
 
 
 3. Touch controls

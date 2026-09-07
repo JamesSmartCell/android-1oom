@@ -5,11 +5,7 @@ plugins {
 android {
     namespace = "com.tallydigital.oomdroid"
     ndkVersion = "27.2.12479018"
-    compileSdk {
-        version = release(36) {
-            minorApiLevel = 1
-        }
-    }
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.tallydigital.oomdroid"
