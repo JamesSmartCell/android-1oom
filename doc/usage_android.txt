@@ -1,0 +1,107 @@
+# Orion Master (1oom Android) #
+
+This is a native Android port of 1oom. It is the same classic Master of
+Orion engine and UI, with an Android hardware/OS backend and a touch
+shell around it.
+
+It is not an emulator and it is not the DOSBox path described in older
+1oom documentation.
+
+
+1. What you must provide
+=========================
+
+The app does not include, download, or redistribute Master of Orion
+data files.
+
+You must legally own Master of Orion (1993) v1.3 and copy its LBX
+files onto the device. A typical v1.3 set includes at least:
+
+    fonts.lbx
+    v11.lbx
+    backgrnd.lbx
+    screens.lbx
+    starmap.lbx
+    planets.lbx
+    ships.lbx
+    names.lbx
+    soundfx.lbx
+    music.lbx
+
+V11.LBX is the 1.3 patch file. Older retail sets without it will not
+start.
+
+
+2. Installing the LBX files
+============================
+
+On first launch the app shows a setup screen.
+
+Preferred method (works on modern Android without all-files access):
+
+    1. Copy your LBX files into a folder on the device (any folder).
+    2. Tap "Choose LBX folder".
+    3. Pick the folder that contains fonts.lbx.
+    4. The app copies the files into its private storage and starts.
+
+Optional methods if you already keep a Download/Orion (or similar)
+folder:
+
+    - Grant storage access, then tap "Use Download/Orion".
+    - The app looks for orion / orion1 folders under Download and
+      under shared storage.
+
+The copy destination is shown on the setup screen
+(usually .../files/orion1). Saves and config also live there.
+
+
+3. Touch controls
+=================
+
+The classic 1993 UI is drawn letterboxed. A tap is a mouse click at
+the corresponding game coordinate.
+
+Extra on-screen controls appear when the classic UI is showing a
+scrollable list:
+
+    - Up / down page the list.
+    - MAX jumps to the largest legal value where the original UI
+      offered that action.
+
+When the game wants text (names, and so on) the Android keyboard is
+shown automatically.
+
+
+4. What this port changes
+==========================
+
+Unchanged:
+
+    - Game rules, classic UI screens, LBX and save formats.
+    - The engine sources stay in the upstream src/ directory.
+
+Android-specific:
+
+    - hw/os/audio backends and JNI in app/src/main/cpp/
+    - Kotlin activity, GameView, and LBX importer
+    - Touch mapping, list overlay buttons, and IME
+    - Default command-line flags used at startup
+      (-skipintro, -cro, -nolog, ...)
+
+Desktop SDL/Allegro builds from this same tree are still possible;
+see COMPILING.
+
+
+5. Distribution
+================
+
+This app is intended for F-Droid, not Google Play.
+
+Google Play expects a complete product. This APK cannot play until
+the user supplies copyrighted LBX files, so it is a poor fit for
+Play and is not submitted there.
+
+F-Droid can ship the GPLv2 engine and Android shell. Users bring
+their own legally obtained data, the same way ScummVM or OpenMW
+work. Do not add LBX files to the git repository or to any release
+artifact.

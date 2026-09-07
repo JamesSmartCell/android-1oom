@@ -1,3 +1,4 @@
+# 1oom / autotools
 *.[oa]
 .a*.out
 .deps/
@@ -12,9 +13,32 @@ build-*/
 src/config.h*
 src/version.inc
 stamp-h1
-
 src/1oom*
 localtest/
 *.lbx
+*.pbx
 1oom-*.tar*
 1oom-*.zip
+
+# Android / Gradle
+*.iml
+.gradle/
+local.properties
+.DS_Store
+/build
+/app/build
+/captures
+.externalNativeBuild
+.cxx/
+**/.cxx/
+*.apk
+*.apk.idsig
+*.ap_
+*.aab
+
+# IDE and local agent scratch
+.idea/
+.artifacts/
+
+# Accidental attachments
+/Manual-Attachment-6.gif

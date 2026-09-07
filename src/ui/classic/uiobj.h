@@ -75,4 +75,12 @@ extern bool uiobj_read_str(int x, int y, int w, char *buf, int buflen, uint8_t r
 extern void uiobj_input_flush(void);
 extern void uiobj_input_wait(void);
 
+/* Android touch overlays: bit0=list pager, bit1=can page up, bit2=can page down, bit3=design MAX */
+extern int uiobj_list_scroll_state(void);
+extern void uiobj_list_overlay_rect(int which, int *x0, int *y0, int *x1, int *y1);
+extern void uiobj_list_page(int dir);
+extern void uiobj_list_jump_max(void);
+extern void uiobj_touch_max_bind(void (*fn)(void), int x0, int y0, int x1, int y1);
+extern void uiobj_touch_max_unbind(void);
+
 #endif

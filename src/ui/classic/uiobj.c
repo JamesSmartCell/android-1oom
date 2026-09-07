@@ -141,6 +141,12 @@ static bool uiobj_flag_skip_delay = false;
 static bool uiobj_flag_have_cb = false;
 static void (*uiobj_callback)(void *) = NULL;
 static void *uiobj_cbdata = NULL;
+static void (*uiobj_touch_max_fn)(void) = NULL;
+static bool uiobj_touch_max_on = false;
+static int uiobj_touch_max_x0 = 0;
+static int uiobj_touch_max_y0 = 0;
+static int uiobj_touch_max_x1 = 0;
+static int uiobj_touch_max_y1 = 0;
 
 static uiobj_t uiobj_tbl[UIOBJ_MAX];
 
@@ -2335,6 +2341,95 @@ int16_t uiobj_select_from_list4(int x, int y, int w, const char *title, char con
 int16_t uiobj_select_from_list2(int x, int y, int w, const char *title, char const * const *strtbl, int16_t *selptr, const bool *condtbl, int linenum, int upx, int upy, uint8_t *uplbx, int dnx, int dny, uint8_t *dnlbx, uint8_t subtype, uint8_t sp0v, bool update_at_cursor)
 {
     return uiobj_select_from_list4(x, y, w, title, strtbl, selptr, condtbl, linenum, upx, upy, uplbx, dnx, dny, dnlbx, subtype, sp0v, update_at_cursor, false, 0, 0);
+}
+
+void uiobj_touch_max_bind(void (*fn)(void), int x0, int y0, int x1, int y1)
+{
+    uiobj_touch_max_fn = fn;
+    uiobj_touch_max_on = (fn != NULL);
+    uiobj_touch_max_x0 = x0;
+    uiobj_touch_max_y0 = y0;
+    uiobj_touch_max_x1 = x1;
+    uiobj_touch_max_y1 = y1;
+}
+
+void uiobj_touch_max_unbind(void)
+{
+    uiobj_touch_max_fn = NULL;
+    uiobj_touch_max_on = false;
+}
+
+static const uiobj_t *uiobj_find_pager(uint32_t key)
+{
+    int i;
+
+    for (i = 1; i < uiobj_table_num; ++i) {
+        const uiobj_t *p = &uiobj_tbl[i];
+        if ((p->type == UIOBJ_TYPE_SET) && (p->key == key) && (p->x0 != UIOBJ_OFFSCREEN)) {
+            return p;
+        }
+    }
+    return NULL;
+}
+
+int uiobj_list_scroll_state(void)
+{
+    int state = 0;
+
+    if (uiobj_flag_select_list_multipage) {
+        const uiobj_t *up = uiobj_find_pager(MOO_KEY_PAGEUP);
+        const uiobj_t *dn = uiobj_find_pager(MOO_KEY_PAGEDOWN);
+        state |= 1;
+        if (up && ((up->vptr == NULL) || (*up->vptr == 0))) {
+            state |= 2;
+        }
+        if (dn && ((dn->vptr == NULL) || (*dn->vptr == 0))) {
+            state |= 4;
+        }
+    } else if (uiobj_touch_max_on) {
+        state |= 8;
+    }
+    return state;
+}
+
+void uiobj_list_overlay_rect(int which, int *x0, int *y0, int *x1, int *y1)
+{
+    const uiobj_t *p = NULL;
+
+    *x0 = *y0 = *x1 = *y1 = 0;
+    if (which == 0) {
+        p = uiobj_find_pager(MOO_KEY_PAGEUP);
+    } else if (which == 1) {
+        p = uiobj_find_pager(MOO_KEY_PAGEDOWN);
+    } else if ((which == 2) && uiobj_touch_max_on) {
+        *x0 = uiobj_touch_max_x0;
+        *y0 = uiobj_touch_max_y0;
+        *x1 = uiobj_touch_max_x1;
+        *y1 = uiobj_touch_max_y1;
+        return;
+    }
+    if (p) {
+        *x0 = p->x0;
+        *y0 = p->y0;
+        *x1 = p->x1;
+        *y1 = p->y1;
+    }
+}
+
+void uiobj_list_page(int dir)
+{
+    if (dir < 0) {
+        kbd_add_keypress(MOO_KEY_UP, 0, 0);
+    } else {
+        kbd_add_keypress(MOO_KEY_DOWN, 0, 0);
+    }
+}
+
+void uiobj_list_jump_max(void)
+{
+    if (uiobj_touch_max_fn) {
+        uiobj_touch_max_fn();
+    }
 }
 
 

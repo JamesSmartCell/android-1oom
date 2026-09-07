@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Orion Master</string>
+    <string name="setup_title">1oom</string>
+    <string name="setup_body">Orion Master is a 1oom engine. It does not include Master of Orion data.\n\nCopy the LBX files from a v1.3 copy you legally own (including V11.LBX), then choose that folder.</string>
+    <string name="setup_pick">Choose LBX folder</string>
+    <string name="setup_missing">No fonts.lbx yet. Choose the folder that contains your LBX files.</string>
+    <string name="setup_need_access">Allow file access, then choose the LBX folder.</string>
+    <string name="setup_ready">Game data found. Starting…</string>
+    <string name="setup_copying">Copying game files…</string>
+    <string name="setup_copy_fail">Could not copy the LBX files.</string>
+    <string name="game_loading">Loading…</string>
+    <string name="game_failed">1oom failed to start. A full MOO1 v1.3 set is required, including V11.LBX.</string>
+</resources>

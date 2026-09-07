@@ -1,0 +1,66 @@
+<resources>
+    <style name="Theme.OrionMaster" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/lcars_orange</item>
+        <item name="colorPrimaryVariant">@color/lcars_daybreak</item>
+        <item name="colorOnPrimary">@color/lcars_black</item>
+        <item name="colorSecondary">@color/lcars_violet</item>
+        <item name="colorSecondaryVariant">@color/lcars_moonlit_violet</item>
+        <item name="colorOnSecondary">@color/lcars_black</item>
+        <item name="android:statusBarColor">@color/lcars_black</item>
+        <item name="android:navigationBarColor">@color/lcars_black</item>
+        <item name="android:windowBackground">@color/lcars_black</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:fontFamily">@font/antonio</item>
+        <item name="fontFamily">@font/antonio</item>
+    </style>
+
+    <style name="Widget.OrionMaster.LcarsButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:fontFamily">@font/antonio</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/lcars_black</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:letterSpacing">0.08</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:gravity">center</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="android:minHeight">108dp</item>
+        <item name="android:paddingStart">12dp</item>
+        <item name="android:paddingEnd">12dp</item>
+        <item name="cornerRadius">22dp</item>
+        <item name="elevation">0dp</item>
+        <item name="android:stateListAnimator">@null</item>
+        <item name="rippleColor">@color/lcars_sunflower</item>
+    </style>
+
+    <style name="Widget.OrionMaster.LcarsButton.Peach" parent="Widget.OrionMaster.LcarsButton">
+        <item name="backgroundTint">@color/lcars_almond</item>
+    </style>
+
+    <style name="Widget.OrionMaster.LcarsButton.Gold" parent="Widget.OrionMaster.LcarsButton">
+        <item name="backgroundTint">@color/lcars_gold</item>
+        <item name="cornerRadius">8dp</item>
+    </style>
+
+    <style name="Widget.OrionMaster.LcarsButton.Violet" parent="Widget.OrionMaster.LcarsButton">
+        <item name="backgroundTint">@color/lcars_violet</item>
+    </style>
+
+    <style name="Widget.OrionMaster.LcarsChip" parent="Widget.MaterialComponents.Button">
+        <item name="android:fontFamily">@font/antonio</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/lcars_black</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:letterSpacing">0.06</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:minHeight">36dp</item>
+        <item name="backgroundTint">@color/lcars_gold</item>
+        <item name="cornerRadius">16dp</item>
+        <item name="elevation">0dp</item>
+        <item name="android:stateListAnimator">@null</item>
+    </style>
+</resources>

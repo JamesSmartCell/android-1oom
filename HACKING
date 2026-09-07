@@ -20,6 +20,14 @@ The code is divided into the following directories:
  *     unix/    - yay
  *     win32/   - boo
  *     msdos/   - wtf
+ * app/         - Android application (this fork; not part of upstream 1oom)
+ *   src/main/java/ - Kotlin shell: LBX import, Surface, touch overlays, IME
+ *   src/main/cpp/  - JNI glue plus Android hw/os/audio backends
+
+The repo-root src/ directory is the upstream 1oom engine. Do not rename it.
+Keeping that path makes git history, blame, and merges from
+https://github.com/1oom-fork/1oom straightforward. Android Studio's
+app/src/ tree is a different, Gradle-conventional source set.
 
 Some facts:
  * main is in hw/ (due to SDL)

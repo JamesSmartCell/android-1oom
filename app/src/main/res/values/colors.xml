@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="lcars_black">#000000</color>
+    <color name="lcars_block_text">#000000</color>
+    <color name="lcars_panel_dark">#331100</color>
+
+    <color name="lcars_african_violet">#CC99FF</color>
+    <color name="lcars_almond">#FFAA90</color>
+    <color name="lcars_almond_creme">#FFBBAA</color>
+    <color name="lcars_butterscotch">#FF9966</color>
+    <color name="lcars_gold">#FFAA00</color>
+    <color name="lcars_golden_orange">#FF9900</color>
+    <color name="lcars_gray">#666688</color>
+    <color name="lcars_green">#999933</color>
+    <color name="lcars_ice">#99CCFF</color>
+    <color name="lcars_lilac">#CC55FF</color>
+    <color name="lcars_lima_bean">#CCCC66</color>
+    <color name="lcars_magenta">#CC5599</color>
+    <color name="lcars_mars">#FF2200</color>
+    <color name="lcars_moonlit_violet">#9966FF</color>
+    <color name="lcars_peach">#FF8866</color>
+    <color name="lcars_red">#CC4444</color>
+    <color name="lcars_sky">#AAAAFF</color>
+    <color name="lcars_space_white">#F5F6FA</color>
+    <color name="lcars_sunflower">#FFCC99</color>
+    <color name="lcars_tomato">#FF5555</color>
+    <color name="lcars_violet_creme">#DDBBFF</color>
+
+    <color name="lcars_orange">#FF8800</color>
+    <color name="lcars_honey">#FFCC99</color>
+    <color name="lcars_daybreak">#FF9900</color>
+    <color name="lcars_pumpkin">#FF2200</color>
+    <color name="lcars_butter">#F5F6FA</color>
+    <color name="lcars_violet">#9966FF</color>
+    <color name="lcars_blue">#5566FF</color>
+    <color name="lcars_saffron">#FFAA00</color>
+    <color name="lcars_mint">#CCCC66</color>
+    <color name="lcars_yellow">#FFAA00</color>
+</resources>

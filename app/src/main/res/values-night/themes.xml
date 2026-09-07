@@ -1,0 +1,16 @@
+<resources>
+    <style name="Theme.OrionMaster" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/lcars_orange</item>
+        <item name="colorPrimaryVariant">@color/lcars_daybreak</item>
+        <item name="colorOnPrimary">@color/lcars_black</item>
+        <item name="colorSecondary">@color/lcars_violet</item>
+        <item name="colorSecondaryVariant">@color/lcars_moonlit_violet</item>
+        <item name="colorOnSecondary">@color/lcars_black</item>
+        <item name="android:statusBarColor">@color/lcars_black</item>
+        <item name="android:navigationBarColor">@color/lcars_black</item>
+        <item name="android:windowBackground">@color/lcars_black</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:fontFamily">@font/antonio</item>
+        <item name="fontFamily">@font/antonio</item>
+    </style>
+</resources>

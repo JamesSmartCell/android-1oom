@@ -74,6 +74,62 @@ static uint8_t const * const colortbl_sd_b6 = &colortbls_sd[0x0d];
 static uint8_t const * const colortbl_sd_bf = &colortbls_sd[0x10];
 static uint8_t const * const colortbl_sd_ba = &colortbls_sd[0x15];
 
+static struct design_data_s *design_touch_d = NULL;
+static struct game_s *design_touch_g = NULL;
+static int design_touch_weap = -1;
+
+bool ui_design_try_inc_weap_count(struct game_s *g, struct design_data_s *d, int i, int inc);
+
+static void design_touch_max_do(void)
+{
+    int i = design_touch_weap;
+    if ((design_touch_d == NULL) || (design_touch_g == NULL) || (i < 0)) {
+        return;
+    }
+    if (!ui_design_try_inc_weap_count(design_touch_g, design_touch_d, i, 99)) {
+        while (ui_design_try_inc_weap_count(design_touch_g, design_touch_d, i, 10)) {
+        }
+        while (ui_design_try_inc_weap_count(design_touch_g, design_touch_d, i, 1)) {
+        }
+    }
+}
+
+static void design_touch_select_weap(int i)
+{
+    design_touch_weap = i;
+}
+
+static void design_touch_refresh(void)
+{
+    const shipdesign_t *sd;
+    int i = design_touch_weap;
+    if (design_touch_d == NULL) {
+        uiobj_touch_max_unbind();
+        return;
+    }
+    if ((i < 0) || (i >= WEAPON_SLOT_NUM)) {
+        i = -1;
+        for (int s = 0; s < WEAPON_SLOT_NUM; ++s) {
+            sd = &(design_touch_d->gd->sd);
+            if ((sd->wpnt[s] != WEAPON_NONE) && (sd->wpnn[s] > 0) && (design_touch_d->flag_tbl_weap_up[s] == 0)) {
+                i = s;
+                break;
+            }
+        }
+    }
+    if (i < 0) {
+        uiobj_touch_max_unbind();
+        return;
+    }
+    sd = &(design_touch_d->gd->sd);
+    if ((sd->wpnt[i] == WEAPON_NONE) || (sd->wpnn[i] == 0) || (design_touch_d->flag_tbl_weap_up[i] != 0)) {
+        uiobj_touch_max_unbind();
+        return;
+    }
+    /* Left of the selected weapon row, beside the original count arrows at x=59. */
+    uiobj_touch_max_bind(design_touch_max_do, 0, i * 10 + 68, 14, i * 10 + 79);
+}
+
 /* -------------------------------------------------------------------------- */
 
 static void design_draw_cb(void *vptr)
@@ -1070,6 +1126,7 @@ static void ui_design_sub(struct ui_design_data_s *u, design_slot_t selmode)
 {
     struct design_data_s *d = u->d;
     uiobj_unset_callback();
+    uiobj_touch_max_unbind();
     if (ui_extra_enabled) {
         hw_video_copy_back_to_page3();
     }
@@ -1152,6 +1209,9 @@ bool ui_design(struct game_s *g, struct game_design_s *gd, player_id_t active_pl
     d.gd = gd;
     d.api = active_player;
     u.d = &d;
+    design_touch_d = &d;
+    design_touch_g = g;
+    design_touch_weap = -1;
 
     design_clear_ois(&u);
 
@@ -1208,6 +1268,7 @@ bool ui_design(struct game_s *g, struct game_design_s *gd, player_id_t active_pl
               && ((oi == u.oi_tbl_weap_up[i]) || ((oi == u.oi_tbl_weap_n_scroll[i]) && ((u.scroll > 0) != ui_mwi_counter)))
             ) {
                 ui_sound_play_sfx_24();
+                design_touch_select_weap(i);
                 if (kbd_is_modifier(MOO_MOD_ALT)) {
                     if (!ui_design_try_inc_weap_count(g, &d, i, 99)) {
                         while (ui_design_try_inc_weap_count(g, &d, i, 10)) {}
@@ -1226,6 +1287,7 @@ bool ui_design(struct game_s *g, struct game_design_s *gd, player_id_t active_pl
               && ((oi == u.oi_tbl_weap_dn[i]) || ((oi == u.oi_tbl_weap_n_scroll[i]) && ((u.scroll < 0) != ui_mwi_counter)))
             ) {
                 ui_sound_play_sfx_24();
+                design_touch_select_weap(i);
                 if (kbd_is_modifier(MOO_MOD_CTRL)) {
                     if (sd->wpnn[i] < 10) {
                         sd->wpnn[i] = 0;
@@ -1242,6 +1304,7 @@ bool ui_design(struct game_s *g, struct game_design_s *gd, player_id_t active_pl
                 break;
             } else if (oi == u.oi_tbl_weap[i]) {
                 ui_sound_play_sfx_24();
+                design_touch_select_weap(i);
                 ui_design_sub(&u, DESIGN_SLOT_WEAPON1 + i);
                 break;
             }
@@ -1278,6 +1341,7 @@ bool ui_design(struct game_s *g, struct game_design_s *gd, player_id_t active_pl
                 break;
             }
         }
+        design_touch_refresh();
         design_draw_cb(&u);
         ui_palette_set_n();
         uiobj_finish_frame();
@@ -1288,6 +1352,10 @@ bool ui_design(struct game_s *g, struct game_design_s *gd, player_id_t active_pl
         ui_delay_ticks_or_click(1);
     }
     game_design_compact_slots(sd);
+    uiobj_touch_max_unbind();
+    design_touch_d = NULL;
+    design_touch_g = NULL;
+    design_touch_weap = -1;
     uiobj_table_clear();
     uiobj_unset_callback();
     uiobj_set_help_id(-1);

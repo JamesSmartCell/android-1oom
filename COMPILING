@@ -231,7 +231,36 @@ Now to cross compile 1oom:
     ../configure --host=i586-pc-msdosdjgpp && make -j 3
 
 
-5. Building distributable packages
+5. Android (this fork)
+=======================
+
+The Android app is a Gradle project at the repository root. It compiles
+the classic UI against an Android hw/os backend in app/src/main/cpp/,
+and links the unmodified engine sources from the repo-root src/ tree.
+
+You need:
+
+- Android Studio / Android SDK
+- NDK 27.2.12479018 (pinned in app/build.gradle.kts)
+- A legally owned Master of Orion v1.3 LBX set. The APK does not
+  contain game data and must not be shipped with LBX files.
+
+From the repository root:
+
+    ./gradlew :app:assembleDebug
+    ./gradlew :app:assembleRelease
+
+The debug APK is written to app/build/outputs/apk/debug/.
+Release builds are unsigned unless you configure a keystore; F-Droid
+signs with its own key.
+
+The CMake argument -DOOM_SRC points at <repo>/src. If you relocate the
+engine, pass a new -DOOM_SRC from app/build.gradle.kts.
+
+See doc/usage_android.txt for installing the LBX files on a device.
+
+
+6. Building distributable packages
 ===================================
 
 Build a tarball requiring no Autotools:
