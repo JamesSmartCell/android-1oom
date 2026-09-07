@@ -1,5 +1,4 @@
-Orion Master (android-1oom)
-===========================
+# Orion Master (android-1oom)
 
 This repository is a **fork of [1oom](https://github.com/1oom-fork/1oom)** for
 Android. The engine in `src/` is the same GPLv2 1oom code, kept at the
@@ -25,7 +24,7 @@ Trying to use the DOSBOX version is practically unplayable due to click areas.
 
 Note that no functional changes were made: This is the same 1oom as desktop other than the usability mods I implemented to actually be able to play the game.
 
-##1. You must own the original game
+## 1. You must own the original game
 
 To use this software you must legally own an original copy of
 Master of Orion (v1.3). 1oom requires that version's LBX files.
@@ -36,7 +35,7 @@ On first launch, pick the folder that contains `fonts.lbx` (a full
 v1.3 set also needs `V11.LBX`). Details are in
 [doc/usage_android.txt](doc/usage_android.txt).
 
-##2. Building the Android app
+## 2. Building the Android app
 
 See [COMPILING](COMPILING) section 5. Short version, from the repo root:
 
@@ -63,7 +62,7 @@ unchanged. See:
 Older saved games may not work in newer 1oom versions. Read
 [CHANGES](CHANGES) for breaking changes.
 
-##3. Acknowledgements
+## 3. Acknowledgements
 
 Most of the credit for this software belongs to the programmer who
 authored [1oom v1.0](https://kilgoretroutmaskreplicant.gitlab.io/plain-html)
