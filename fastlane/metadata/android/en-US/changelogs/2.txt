@@ -1,0 +1,1 @@
+Drop all-files storage permission. Choose LBX folder now opens the system folder picker only.

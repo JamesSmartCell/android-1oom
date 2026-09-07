@@ -38,13 +38,9 @@ start.
 On first launch the app shows a setup screen with one button.
 
     1. Copy your LBX files into a folder on the device.
-    2. Tap "Choose LBX folder".
-    3. If the app does not yet have file access, Android opens the
-       system file-access screen. Grant access, then you return and
-       the folder picker opens. If access was already granted, the
-       picker opens immediately.
-    4. Pick the folder that contains fonts.lbx.
-    5. The app copies the files into its private storage
+    2. Tap "Choose LBX folder". The system folder picker opens.
+    3. Pick the folder that contains fonts.lbx.
+    4. The app copies the files into its private storage
        (usually .../files/orion1) and starts.
 
 Saves and config also live in that private folder.

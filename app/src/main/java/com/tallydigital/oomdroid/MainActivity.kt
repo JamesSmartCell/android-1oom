@@ -1,14 +1,9 @@
 package com.tallydigital.oomdroid
 
-import android.Manifest
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.os.Environment
 import android.provider.DocumentsContract
-import android.provider.Settings
 import android.view.KeyEvent
 import android.view.View
 import android.widget.Button
@@ -16,7 +11,6 @@ import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
@@ -45,26 +39,6 @@ class MainActivity : AppCompatActivity() {
         } catch (_: SecurityException) {
         }
         copyInBackground { GameData.importFromTree(this, uri) }
-    }
-
-    private val readStorage = registerForActivityResult(
-        ActivityResultContracts.RequestPermission(),
-    ) { granted ->
-        if (granted) {
-            openFolderPicker()
-        } else {
-            setupStatus.setText(R.string.setup_need_access)
-        }
-    }
-
-    private val allFilesAccess = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult(),
-    ) {
-        if (hasStorageAccess()) {
-            openFolderPicker()
-        } else {
-            setupStatus.setText(R.string.setup_need_access)
-        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -97,14 +71,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun chooseLbxFolder() {
-        if (hasStorageAccess()) {
-            openFolderPicker()
-            return
-        }
-        requestStorageAccess()
-    }
-
-    private fun openFolderPicker() {
         folderPicker.launch(downloadsTreeHint())
     }
 
@@ -113,27 +79,6 @@ class MainActivity : AppCompatActivity() {
             "com.android.externalstorage.documents",
             "primary:Download",
         )
-    }
-
-    private fun hasStorageAccess(): Boolean {
-        if (Build.VERSION.SDK_INT >= 30) {
-            return Environment.isExternalStorageManager()
-        }
-        return ContextCompat.checkSelfPermission(
-            this,
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-        ) == PackageManager.PERMISSION_GRANTED
-    }
-
-    private fun requestStorageAccess() {
-        setupStatus.setText(R.string.setup_need_access)
-        if (Build.VERSION.SDK_INT >= 30) {
-            val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
-            intent.data = Uri.parse("package:$packageName")
-            allFilesAccess.launch(intent)
-            return
-        }
-        readStorage.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
     }
 
     private fun copyInBackground(action: () -> ImportResult) {

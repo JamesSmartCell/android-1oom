@@ -48,7 +48,7 @@ Official walkthrough: https://f-droid.org/docs/Submitting_to_F-Droid_Quick_Start
 - **LBX files** — none in git or the APK. Same model as OpenMW: engine only, user-owned data.
 - **Launcher art** — original to this fork, GPLv2 (see `NOTICE`). Not MicroProse box art.
 - **Antonio font** — SIL Open Font License 1.1 (`app/src/main/assets/licenses/Antonio-OFL.txt`).
-- **All-files access** — `MANAGE_EXTERNAL_STORAGE` gets extra scrutiny. It is only used so the user can reach their LBX folder; the app never uploads anything.
+- **Storage** — no `MANAGE_EXTERNAL_STORAGE`. LBX import uses the SAF folder picker only.
 - **AGP 9 / Gradle 9.5 / JDK 21** — current, but if CI cannot resolve the SDK or JDK, the metadata `sudo:` block may need an OpenJDK 21 install.
 
 ## After it is listed
