@@ -18,10 +18,10 @@ This build has several UI changes which make playing MOO on Android possible/ple
 Trying to use the DOSBOX version is practically unplayable due to click areas.
 
 The following UI changes were made:
-i. The slider click areas were enlarged. There are two large hotspots around the lower/raise slider buttons to make it easier to change the sliders. The slider direct click area is larger, but the up/down hotspots override the fast select. This seemed to be the most optimal way of fixing the click issue.
-ii. In the ship design screen, the increase/decrease weapon count button click areas are enlarged.
-iii. In the ship design screen, there is an additional "MAX" button to quickly set weapons to max space available.
-iv. On weapons and specials selection, there are up/down buttons on the right hand side to easily traverse the list of available items for shipment.
+- i. The slider click areas were enlarged. There are two large hotspots around the lower/raise slider buttons to make it easier to change the sliders. The slider direct click area is larger, but the up/down hotspots override the fast select. This seemed to be the most optimal way of fixing the click issue.
+- ii. In the ship design screen, the increase/decrease weapon count button click areas are enlarged.
+- iii. In the ship design screen, there is an additional "MAX" button to quickly set weapons to max space available.
+- iv. On weapons and specials selection, there are up/down buttons on the right hand side to easily traverse the list of available items for shipment.
 
 Note that no functional changes were made: This is the same 1oom as desktop other than the usability mods I implemented to actually be able to play the game.
 
