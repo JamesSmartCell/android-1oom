@@ -2,8 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
 }
 
-val appVersionCode = 4
-val appVersionName = "1.0.3"
+val appVersionCode = 5
+val appVersionName = "1.0.4"
 
 android {
     namespace = "com.tallydigital.oomdroid"
@@ -50,13 +50,18 @@ android {
     }
 }
 
-tasks.configureEach {
-    if (name != "assembleRelease") {
-        return@configureEach
-    }
+val releaseApkFileName = "OrionMaster-$appVersionName.apk"
+val releaseApkDirectory = layout.buildDirectory.dir("outputs/apk/release")
+
+tasks.register("renameReleaseApk") {
+    val apkFileName = releaseApkFileName
+    val apkDirectory = releaseApkDirectory
     doLast {
-        val outDir = layout.buildDirectory.dir("outputs/apk/release").get().asFile
-        val target = outDir.resolve("OrionMaster-$appVersionName.apk")
+        val outDir = apkDirectory.get().asFile
+        if (!outDir.isDirectory) {
+            return@doLast
+        }
+        val target = outDir.resolve(apkFileName)
         outDir.listFiles()
             ?.filter { it.isFile && it.extension == "apk" && it.name != target.name }
             ?.forEach { src ->
@@ -65,6 +70,12 @@ tasks.configureEach {
                 }
                 src.renameTo(target)
             }
+    }
+}
+
+tasks.configureEach {
+    if (name == "assembleRelease") {
+        finalizedBy("renameReleaseApk")
     }
 }
 
