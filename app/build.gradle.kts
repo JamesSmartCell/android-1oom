@@ -2,8 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
 }
 
-val appVersionCode = 3
-val appVersionName = "1.0.2"
+val appVersionCode = 4
+val appVersionName = "1.0.3"
 
 android {
     namespace = "com.tallydigital.oomdroid"
