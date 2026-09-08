@@ -2,6 +2,9 @@ plugins {
     alias(libs.plugins.android.application)
 }
 
+val appVersionCode = 3
+val appVersionName = "1.0.2"
+
 android {
     namespace = "com.tallydigital.oomdroid"
     ndkVersion = "27.2.12479018"
@@ -11,8 +14,8 @@ android {
         applicationId = "com.tallydigital.oomdroid"
         minSdk = 27
         targetSdk = 36
-        versionCode = 3
-        versionName = "1.0.2"
+        versionCode = appVersionCode
+        versionName = appVersionName
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         ndk {
             abiFilters += listOf("arm64-v8a", "armeabi-v7a", "x86_64")
@@ -21,7 +24,8 @@ android {
             cmake {
                 arguments += listOf(
                     "-DOOM_SRC=${rootProject.projectDir.resolve("src").canonicalFile.invariantSeparatorsPath}",
-                    "-DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON"
+                    "-DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON",
+                    "-DANDROID_APP_VERSION=${appVersionName}"
                 )
                 cppFlags += ""
             }
@@ -43,6 +47,24 @@ android {
         cmake {
             path = file("src/main/cpp/CMakeLists.txt")
         }
+    }
+}
+
+tasks.configureEach {
+    if (name != "assembleRelease") {
+        return@configureEach
+    }
+    doLast {
+        val outDir = layout.buildDirectory.dir("outputs/apk/release").get().asFile
+        val target = outDir.resolve("OrionMaster-$appVersionName.apk")
+        outDir.listFiles()
+            ?.filter { it.isFile && it.extension == "apk" && it.name != target.name }
+            ?.forEach { src ->
+                if (target.exists()) {
+                    target.delete()
+                }
+                src.renameTo(target)
+            }
     }
 }
 

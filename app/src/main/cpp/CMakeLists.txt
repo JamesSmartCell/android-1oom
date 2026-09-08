@@ -40,8 +40,13 @@ target_include_directories(oomdroid PRIVATE
     ${OOM_SRC}/ui/classic
 )
 
+if(NOT ANDROID_APP_VERSION)
+    set(ANDROID_APP_VERSION "dev")
+endif()
+
 target_compile_definitions(oomdroid PRIVATE
     HAVE_STRCASECMP=1
+    ANDROID_APP_VERSION="${ANDROID_APP_VERSION}"
 )
 
 target_compile_options(oomdroid PRIVATE

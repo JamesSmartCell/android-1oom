@@ -21,7 +21,7 @@ Repo: https://github.com/JamesSmartCell/android-1oom
 Builds:
   - versionName: 1.0.2
     versionCode: 3
-    commit: REPLACE_AFTER_PUSH
+    commit: fc4ea9f25a938b27b5bc51e8da565472d94cb1ec
     timeout: 10800
     subdir: app
     sudo:

@@ -65,6 +65,7 @@ typedef struct uiobj_s {
     */
     /*08*/ uint8_t type;
     /*..*/ uint8_t scale;
+    /*..*/ uint8_t hit_pad_up; /* extra hit pixels above y0; does not move the sprite */
     /*1a*/ int16_t *vptr;
     /*24*/ uint32_t key;
     union {
@@ -208,13 +209,21 @@ static inline bool uiobj_is_at_xy(const uiobj_t *p, int x, int y)
     x += uiobj_mouseoff;
     y += uiobj_mouseoff;
     scale = p->scale;
-    if (0
-      || (x < (p->x0 * scale))
-      || (x > (p->x1 * scale + scale - 1))
-      || (y < (p->y0 * scale))
-      || (y > (p->y1 * scale + scale - 1))
-    ) {
-        return false;
+    {
+        int hit_y0 = p->y0;
+        if (p->hit_pad_up < hit_y0) {
+            hit_y0 -= p->hit_pad_up;
+        } else {
+            hit_y0 = 0;
+        }
+        if (0
+          || (x < (p->x0 * scale))
+          || (x > (p->x1 * scale + scale - 1))
+          || (y < (hit_y0 * scale))
+          || (y > (p->y1 * scale + scale - 1))
+        ) {
+            return false;
+        }
     }
     return true;
 }
@@ -1563,6 +1572,7 @@ static void uiobj_add_set_xys(uiobj_t *p, uint16_t x0, uint16_t y0, uint16_t x1,
     p->y0 = y0;
     p->x1 = x1;
     p->y1 = y1;
+    p->hit_pad_up = 0;
 }
 
 static void uiobj_add_t03_do(uint16_t x, uint16_t y, const char *str, uint8_t *lbxdata, mookey_t key, uint8_t scale)
@@ -1991,6 +2001,14 @@ void uiobj_dec_y1(int16_t oi)
 {
     uiobj_t *p = &uiobj_tbl[oi];
     --p->y1;
+}
+
+void uiobj_set_hit_pad_up(int16_t oi, uint8_t pad)
+{
+    if (oi <= 0) {
+        return;
+    }
+    uiobj_tbl[oi].hit_pad_up = pad;
 }
 
 void uiobj_ta_set_val_0(int16_t oi)

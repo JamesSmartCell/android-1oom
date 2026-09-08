@@ -63,6 +63,7 @@ extern int16_t uiobj_add_ta(uint16_t x, uint16_t y, uint16_t w, const char *str,
 extern int16_t uiobj_add_tb(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t xscale, uint16_t yscale, int16_t *xptr, int16_t *yptr, uint8_t *zptr, uint8_t zmax);
 
 extern void uiobj_dec_y1(int16_t oi);
+extern void uiobj_set_hit_pad_up(int16_t oi, uint8_t pad);
 extern void uiobj_ta_set_val_0(int16_t oi);
 extern void uiobj_ta_set_val_1(int16_t oi);
 

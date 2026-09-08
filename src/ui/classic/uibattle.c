@@ -38,6 +38,17 @@
 
 #define MAX_VISIBLE_MISSILE 10
 
+/* Bottom combat buttons are 7px and flush to y=199. Grow hit + finger-cursor
+ * upward into the last arena row. A 50% taller pad is only ~4px and still
+ * sits under the 16x16 red "0"; half a grid cell (~12px) matches "near AUTO".
+ * The last row must yield those pixels or its cursor/hit box wins on overlap. */
+#define BATTLE_BOTTOM_Y0        193
+#define BATTLE_BOTTOM_Y1        199
+#define BATTLE_BOTTOM_PAD_UP    12
+#define BATTLE_BOTTOM_HIT_Y0    (BATTLE_BOTTOM_Y0 - BATTLE_BOTTOM_PAD_UP)
+#define BATTLE_CURSOR_BAR_I     (1 + BATTLE_AREA_W * BATTLE_AREA_H)
+#define BATTLE_CURSOR_NUM       (BATTLE_CURSOR_BAR_I + 1)
+
 struct ui_battle_data_s {
     struct battle_s *bt;
     uint8_t *gfx_bg;
@@ -57,10 +68,30 @@ struct ui_battle_data_s {
     int16_t oi_done;
     int16_t oi_grid;
     int16_t oi_area[BATTLE_AREA_H][BATTLE_AREA_W];
-    ui_cursor_area_t cursor[1 + BATTLE_AREA_W * BATTLE_AREA_H];
+    ui_cursor_area_t cursor[BATTLE_CURSOR_NUM];
 };
 
 /* -------------------------------------------------------------------------- */
+
+static void ui_battle_expand_bottom_oi(int16_t oi)
+{
+    if (oi > 0) {
+        uiobj_set_hit_pad_up(oi, BATTLE_BOTTOM_PAD_UP);
+    }
+}
+
+static void ui_battle_setup_bottom_cursor(struct ui_battle_data_s *d)
+{
+    ui_cursor_area_t *cr = &(d->cursor[BATTLE_CURSOR_BAR_I]);
+    /* cursor_i 1 is the pointing finger; grid cells use 2-5 (red "0" / targets). */
+    cr->cursor_i = 1;
+    cr->mouseoff = 0;
+    cr->cursor_scale_mode = UI_CURSOR_SCALE_MODE_NORMAL;
+    cr->x0 = 0;
+    cr->y0 = BATTLE_BOTTOM_HIT_Y0 * ui_scale;
+    cr->x1 = UI_SCREEN_W - 1;
+    cr->y1 = UI_SCREEN_H - 1;
+}
 
 static void ui_battle_draw_scan_cb(void *vptr)
 {
@@ -297,6 +328,9 @@ static void ui_battle_draw_bottom_add_ois(const struct battle_s *bt)
         int y0, y1;
         y0 = sy * 24;
         y1 = y0 + 23;
+        if (sy == (BATTLE_AREA_H - 1)) {
+            y1 = BATTLE_BOTTOM_HIT_Y0 - 1;
+        }
         for (int sx = 0; sx < BATTLE_AREA_W; ++sx) {
             ui_cursor_area_t *cr = &(d->cursor[1 + sy * BATTLE_AREA_W + sx]);
             int x0, x1;
@@ -315,6 +349,7 @@ static void ui_battle_draw_bottom_add_ois(const struct battle_s *bt)
     ui_draw_line1(0, 192, 319, 192, 0xeb, ui_scale);
     if (bt->item[0].side != SIDE_NONE) {
         d->oi_planet = uiobj_add_t0(123, 193, "", ui_data.gfx.space.planet, MOO_KEY_p);
+        ui_battle_expand_bottom_oi(d->oi_planet);
     } else {
         lbxgfx_draw_frame(123, 193, ui_data.gfx.space.planet_off, UI_SCREEN_W, ui_scale);
         d->oi_planet = UIOBJI_INVALID;
@@ -329,20 +364,24 @@ static void ui_battle_draw_bottom_add_ois(const struct battle_s *bt)
         d->oi_retreat = UIOBJI_INVALID;
     } else {
         d->oi_retreat = uiobj_add_t0(241, 193, "", ui_data.gfx.space.retreat, MOO_KEY_r);
+        ui_battle_expand_bottom_oi(d->oi_retreat);
     }
     d->oi_done = uiobj_add_t0(297, 193, "", ui_data.gfx.space.done, MOO_KEY_d);
+    ui_battle_expand_bottom_oi(d->oi_done);
     d->oi_grid = uiobj_add_inputkey(MOO_KEY_g);
     d->oi_wait = uiobj_add_t0(274, 193, "", ui_data.gfx.space.wait, MOO_KEY_w);
+    ui_battle_expand_bottom_oi(d->oi_wait);
 #if 0
     d->oi_auto = uiobj_add_t0(99, 193, "", ui_data.gfx.space.autob, MOO_KEY_a);
 #else
     /* HACK MOO1 does this. Breaks const *bt and requires flag to be int16_t, but works while it is not the player's turn. */
     d->oi_auto = uiobj_add_t1(99, 193, "", ui_data.gfx.space.autob, &(((struct battle_s *)bt)->s[b->side].flag_auto), MOO_KEY_a);
 #endif
+    ui_battle_expand_bottom_oi(d->oi_auto);
     if ((b->missile == 0) || (b->missile == 1)) {
         if (bt->cur_item == 0) {
             if (b->wpn[0].t != b->wpn[1].t) {
-                d->oi_missile = uiobj_add_mousearea(175, 193, 208, 199, MOO_KEY_m);
+                d->oi_missile = uiobj_add_mousearea(175, BATTLE_BOTTOM_HIT_Y0, 208, BATTLE_BOTTOM_Y1, MOO_KEY_m);
                 gfx = ui_data.gfx.space.base_btn;
                 if (bt->s[b->side].flag_base_missile) {
                     lbxgfx_set_frame_0(gfx);
@@ -354,7 +393,7 @@ static void ui_battle_draw_bottom_add_ois(const struct battle_s *bt)
                 d->oi_missile = UIOBJI_INVALID;
             }
         } else {
-            d->oi_missile = uiobj_add_mousearea(175, 193, 208, 199, MOO_KEY_m);
+            d->oi_missile = uiobj_add_mousearea(175, BATTLE_BOTTOM_HIT_Y0, 208, BATTLE_BOTTOM_Y1, MOO_KEY_m);
             gfx = ui_data.gfx.space.misbutt;
             if (b->missile == 0) {
                 lbxgfx_set_frame_0(gfx);
@@ -369,6 +408,7 @@ static void ui_battle_draw_bottom_add_ois(const struct battle_s *bt)
     lbxgfx_draw_frame(175, 193, gfx, UI_SCREEN_W, ui_scale);
     if (bt->s[b->side].flag_have_scan) {
         d->oi_scan = uiobj_add_t0(153, 193, "", ui_data.gfx.space.scan, MOO_KEY_s);
+        ui_battle_expand_bottom_oi(d->oi_scan);
     } else {
         lbxgfx_draw_frame(153, 193, ui_data.gfx.space.scan_off, UI_SCREEN_W, ui_scale);
         d->oi_scan = UIOBJI_INVALID;
@@ -379,7 +419,7 @@ static void ui_battle_draw_bottom_add_ois(const struct battle_s *bt)
             lbxgfx_set_frame_0(gfx);
             d->oi_special = UIOBJI_INVALID;
         } else {
-            d->oi_special = uiobj_add_mousearea(210, 193, 239, 199, MOO_KEY_p);
+            d->oi_special = uiobj_add_mousearea(210, BATTLE_BOTTOM_HIT_Y0, 239, BATTLE_BOTTOM_Y1, MOO_KEY_p);
             if (bt->special_button == 0) {
                 lbxgfx_set_frame_0(gfx);
             } else {
@@ -391,6 +431,7 @@ static void ui_battle_draw_bottom_add_ois(const struct battle_s *bt)
         d->oi_special = UIOBJI_INVALID;
     }
     lbxgfx_draw_frame(210, 193, gfx, UI_SCREEN_W, ui_scale);
+    ui_battle_setup_bottom_cursor(d);
 }
 
 static void ui_battle_draw_cb(void *vptr)
@@ -938,7 +979,7 @@ void ui_battle_draw_scan(const struct battle_s *bt, bool side_r)
     uiobj_unset_callback();
     uiobj_set_help_id(7);
     uiobj_set_callback_and_delay(ui_battle_draw_cb, (void *)bt, 2);
-    ui_cursor_setup_area(1 + BATTLE_AREA_W * BATTLE_AREA_H, &(d->cursor[0]));
+    ui_cursor_setup_area(BATTLE_CURSOR_NUM, &(d->cursor[0]));
     d->flag_scanning = false;
 }
 
@@ -1905,7 +1946,8 @@ void ui_battle_area_setup(const struct battle_s *bt)
             }
         }
     }
-    ui_cursor_setup_area(1 + BATTLE_AREA_W * BATTLE_AREA_H, &(d->cursor[0]));
+    ui_battle_setup_bottom_cursor(d);
+    ui_cursor_setup_area(BATTLE_CURSOR_NUM, &(d->cursor[0]));
 }
 
 void ui_battle_turn_pre(const struct battle_s *bt)
